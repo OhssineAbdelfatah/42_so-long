@@ -51,14 +51,21 @@ int render_map(t_data *data){
         x = 0;
         j = 0 ;
         while( (*data).map_arr[i][j] ){
-            if((*data).map_arr[i][j] == '1')
+            if((*data).map_arr[i][j] == '1' )
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[0]->img_ptr ,x,y);
             else if((*data).map_arr[i][j] == 'P')
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[1]->img_ptr,x+8,y);
             else if((*data).map_arr[i][j] == 'C')
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[2]->img_ptr,x,y);
-            else if((*data).map_arr[i][j]   )
+            else if((*data).map_arr[i][j] == 'E'  && (*data).game->exit == 0)
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x+6,y);
+            else if((*data).map_arr[i][j] == 'B'  ){
+                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x+6,y);
+                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[1]->img_ptr,x+6,y);
+            }
+            // else if((*data).map_arr[i][j] == 'E'  && (*data).game->exit == 0)
+            //     mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x+6,y);
+            
             j++;
             x+=(*data).images[0]->xw;
         }

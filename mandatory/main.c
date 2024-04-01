@@ -8,7 +8,29 @@ int get_button_exit(__unused long keycode, __unused t_data vars ){
 }
 
 
+t_game count_collect(t_data *data){
+    int i;
+    int j;
+    t_game g1;
 
+    i = 0 ;
+    g1.coll_0 = 0;
+    g1.coll_var = 0;
+    g1.exit = 0;
+
+ 
+    while((*data).map_arr[i]){
+        j = 0;
+        while ((*data).map_arr[i][j])
+        {
+            if((*data).map_arr[i][j] == 'C')
+                g1.coll_0++;
+            j++;
+        }
+        i++;
+    }
+    return g1;
+}
 
 int get_movs(long keycode,t_data *vars){
     if(keycode == 53)
@@ -24,8 +46,10 @@ int get_movs(long keycode,t_data *vars){
     return 0;
 }
 
-int start_game(){
+int start_game()
+{
     t_data data;
+    t_game game;
     t_img img[4];
 
     t_map mtrx;
@@ -57,6 +81,9 @@ int start_game(){
     
     (data).win_ptr = mlx_new_window((data).mlx_ptr,(data).map->w * img[0].xw,(data).map->h*img[0].yh,"So Long @_@");
 
+    game = count_collect(&data);
+    data.game = &game;
+    data.movs = 0 ;
     render_map(&data); // check error
 
     mlx_hook(data.win_ptr,2,0,get_movs,&data);

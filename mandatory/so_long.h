@@ -13,7 +13,13 @@
 // 	t_img image;
 // 	t_data data;
 // } t_all;
- 
+typedef struct t_game
+{
+	int coll_0;
+	int coll_var;
+	int exit;
+}t_game;
+
 typedef struct t_img{
 	char *path;
 	void *img_ptr;
@@ -29,11 +35,13 @@ typedef struct t_map {
 
 typedef struct s_data
 {
+	t_game *game;
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
 	t_img		*images[4]; // MLX image pointers (on the stack)
 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
 	char **map_arr;
+	int movs;
 }	t_data;
 
 // get next line functions
@@ -53,7 +61,7 @@ t_map count_hw();
 char **fill_map(int h);
 int render_map(t_data *data);
 
-// movs`
+// movs
 
 void move_left(t_data *data);
 void move_up(t_data *data);
@@ -61,5 +69,7 @@ void move_right(t_data *data);
 void move_down(t_data *data);
 t_map get_player_position(t_data data);
 
+// check collectable and exit
 
+t_game count_collect(t_data *data);
 #endif
