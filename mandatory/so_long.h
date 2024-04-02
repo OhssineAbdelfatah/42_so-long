@@ -38,7 +38,7 @@ typedef struct s_data
 	t_game *game;
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	t_img		*images[4]; // MLX image pointers (on the stack)
+	t_img		*images[5]; // MLX image pointers (on the stack)
 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
 	char **map_arr;
 	int movs;
@@ -60,6 +60,7 @@ char	*hold_grbg(char *s);
 t_map count_hw();
 char **fill_map(int h);
 int render_map(t_data *data);
+char *int_to_str(int nbr);
 
 // movs
 

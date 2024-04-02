@@ -1,0 +1,13 @@
+
+
+01 . check boundries
+
+02 . valid_path
+
+03 . unicty of objects ( 1P , 1E ,at least 1 C )
+
+04 . screen size check
+
+05 . check program args only a map with ".ber" extension , file aces and existence
+
+06 .

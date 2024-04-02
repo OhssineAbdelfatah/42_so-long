@@ -8,7 +8,8 @@ int get_button_exit(__unused long keycode, __unused t_data vars ){
 }
 
 
-t_game count_collect(t_data *data){
+t_game count_collect(t_data *data)
+{
     int i;
     int j;
     t_game g1;
@@ -18,7 +19,6 @@ t_game count_collect(t_data *data){
     g1.coll_var = 0;
     g1.exit = 0;
 
- 
     while((*data).map_arr[i]){
         j = 0;
         while ((*data).map_arr[i][j])
@@ -33,15 +33,15 @@ t_game count_collect(t_data *data){
 }
 
 int get_movs(long keycode,t_data *vars){
-    if(keycode == 53)
+    if(keycode == 53 )
         exit(2);
-    if(keycode == 124) // right
+    if(keycode == 124 || keycode == 2) // right
         move_right(vars);
-    if(keycode == 123)
+    if(keycode == 123 || keycode == 0)
         move_left(vars); // left
-    if(keycode == 126)
+    if(keycode == 126 || keycode == 13)
         move_up(vars); // up
-    if(keycode == 125)
+    if(keycode == 125 || keycode == 1)
         move_down(vars); // down
     return 0;
 }
@@ -50,24 +50,29 @@ int start_game()
 {
     t_data data;
     t_game game;
-    t_img img[4];
+    t_img img[5];
 
     t_map mtrx;
     
 
 
     img[0].path = "./texteurs/wall.xpm";
-    img[1].path = "./texteurs/player.xpm";
+    img[1].path = "./texteurs/player_boy.xpm";
     img[2].path = "./texteurs/col.xpm";
-    img[3].path = "./texteurs/home.xpm";
+    img[3].path = "./texteurs/close.xpm";
+    img[4].path = "./texteurs/open.xpm";
     
     data.images[0] = &img[0]; 
     data.images[1] = &img[1]; 
     data.images[2] = &img[2]; 
     data.images[3] = &img[3]; 
+    data.images[4] = &img[4]; 
     // map check first
     
-    mtrx = count_hw();
+
+    //check lines , min objects 3( 1P 1E , at least 1C)
+    mtrx = count_hw(); // count height and width
+    //
     data.map = &mtrx; 
 
     data.map_arr = fill_map(mtrx.h);
@@ -78,6 +83,7 @@ int start_game()
     data.images[1]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[1]->path, &(data.images[1]->xw), &(data.images[1]->yh));
     data.images[2]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[2]->path, &(data.images[2]->xw), &(data.images[2]->yh));
     data.images[3]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[3]->path, &(data.images[3]->xw), &(data.images[3]->yh));
+    data.images[4]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[4]->path, &(data.images[4]->xw), &(data.images[4]->yh));
     
     (data).win_ptr = mlx_new_window((data).mlx_ptr,(data).map->w * img[0].xw,(data).map->h*img[0].yh,"So Long @_@");
 
