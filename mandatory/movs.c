@@ -36,7 +36,7 @@ void move_left(t_data *data)
         if((*data).map_arr[location.h][location.w - 1] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
             (*data).map_arr[location.h][location.w - 1] = 'B';
         else if((*data).map_arr[location.h][location.w - 1] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            printf("you win\n");
+            ft_printf("you win\n");
             exit(0);
         }
         else
@@ -66,7 +66,7 @@ void move_right(t_data *data)
         if((*data).map_arr[location.h][location.w + 1] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
             (*data).map_arr[location.h][location.w + 1] = 'B';
         else if((*data).map_arr[location.h][location.w + 1] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            printf("you win");
+            ft_printf("you win");
             exit(0);
         }
         else
@@ -93,7 +93,7 @@ void move_down(t_data *data){
         if((*data).map_arr[location.h+1][location.w] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
             (*data).map_arr[location.h+1][location.w] = 'B';
         else if((*data).map_arr[location.h+1][location.w] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            printf("you win");
+            ft_printf("you win");
             exit(0);
         }
         else 
@@ -122,7 +122,7 @@ void move_up(t_data *data){
             (*data).map_arr[location.h-1][location.w] = 'B';
         else if( (*data).map_arr[location.h-1][location.w] == 'E' && (*data).game->coll_var == (*data).game->coll_0)
         {
-            printf("you win");
+            ft_printf("you win");
             exit(0);
         }
         else

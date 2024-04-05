@@ -46,15 +46,15 @@ int get_movs(long keycode,t_data *vars){
     return 0;
 }
 
-int start_game()
+int start_game(char *name)
 {
     t_data data;
+    int i;
     t_game game;
     t_img img[5];
 
     t_map mtrx;
     
-
 
     img[0].path = "./texteurs/wall.xpm";
     img[1].path = "./texteurs/player_boy.xpm";
@@ -70,13 +70,36 @@ int start_game()
     // map check first
     
 
-    //check lines , min objects 3( 1P 1E , at least 1C)
-    mtrx = count_hw(); // count height and width
+  
+    
+    //, min objects 3( 1P 1E , at least 1C)
+    mtrx = count_hw(name); // count height and width
     //
     data.map = &mtrx; 
 
-    data.map_arr = fill_map(mtrx.h);
+    data.map_arr = fill_map(mtrx.h,name);
     // check return
+
+    //check lines 
+    
+    i=0; 
+    if( data.map_arr[0] != NULL ){
+        if(check_lines(data) == -1 ||  check_boundry(data) == -1   || check_object(data) == -1){
+            while(data.map_arr[i++ ])
+                free(data.map_arr[i]);
+            free(data.map_arr);
+            ft_printf("error \nmap error : lines or wall are not correct\n");
+            return -1;
+        }
+    }
+    else{
+        return -1;
+    }
+  
+  
+  
+  
+  
     data.mlx_ptr = mlx_init();
 
     data.images[0]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[0]->path, &(data.images[0]->xw), &(data.images[0]->yh));
@@ -92,17 +115,23 @@ int start_game()
     data.movs = 0 ;
     render_map(&data); // check error
 
-    mlx_hook(data.win_ptr,2,0,get_movs,&data);
-    mlx_hook(data.win_ptr,17,0,get_button_exit,&data);
+    mlx_hook(data.win_ptr, 2,0,get_movs,&data);
+    mlx_hook(data.win_ptr, 17,0,get_button_exit,&data);
     mlx_loop(data.mlx_ptr);
     return 0;
 }
 
-int main(){
-   int err;
-    err = start_game();
-    if(err != 0)
-        return -1;
+int main(int argc ,char **argv){
+    int err;    
+    
+    if(argc == 2 ){
+        if(check_map_name(argv[1]))
+            return 0;
+        err = start_game(argv[1]);
+        if(err != 0)
+            return -1;
+    }else{
+        ft_printf("error\n");
+    }
     return 0;
-
 }

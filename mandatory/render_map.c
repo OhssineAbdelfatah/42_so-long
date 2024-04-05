@@ -1,18 +1,19 @@
 #include"so_long.h"
 
 
-t_map count_hw(){
+t_map count_hw(char *name){
     int fd_map ;
     t_map mtrx;
     char *line;
     mtrx.w = 0;
     mtrx.h = 0;
-    fd_map = open("map.ber",O_RDONLY);
+    fd_map = open(name,O_RDONLY);
     // handle error
     while( (line = get_next_line(fd_map)) ){
         while(line[mtrx.w])
             mtrx.w++;
         mtrx.h++;
+        free(line);
     }
     free(line);
     close(fd_map);
@@ -21,17 +22,20 @@ t_map count_hw(){
 
 
 
-char **fill_map(int h){
+char **fill_map(int h, char *name)
+{
     char **map;
     int i;
     int fd_map;
 
-    fd_map = open("map.ber",O_RDONLY);
+    fd_map = open(name,O_RDONLY);
     // handel error
     i = 0 ;
     map = (char **)malloc((h+1)*sizeof(char *));
+    if(!map)
+        return NULL;
     //handle error
-    while(i< h){
+    while(i< h ){
         map[i] = get_next_line(fd_map);
         i++;
     }

@@ -4,7 +4,7 @@
 #  define BUFFER_SIZE 42
 # endif
 # include <stdlib.h>
-# include <stdio.h>
+# include <stdarg.h>
 # include <unistd.h>
 # include <fcntl.h>
 # include "../mlx/mlx.h"
@@ -13,14 +13,14 @@
 // 	t_img image;
 // 	t_data data;
 // } t_all;
-typedef struct t_game
+typedef struct s_game
 {
 	int coll_0;
 	int coll_var;
 	int exit;
 }t_game;
 
-typedef struct t_img{
+typedef struct s_img{
 	char *path;
 	void *img_ptr;
 	int xw;
@@ -28,7 +28,7 @@ typedef struct t_img{
 
 } t_img;
 
-typedef struct t_map {
+typedef struct s_map {
     int w;
     int h;
 } t_map;
@@ -54,11 +54,26 @@ int		find_char(char *s, char c);
 char	*trim_line(char *s);
 char	*hold_grbg(char *s);
 
+// ft_printf functions 
+
+int		ft_printf(const char *string, ...);
+void	printstr(char *s, int *len);
+void	printchar(char c, int *len);
+void	printnbr(long n, int *len, char type);
+void	printhexa(unsigned long n, int *len, char type);
+
 // so long functions
 
+//verify map
+
+int check_lines(t_data data);
+int check_boundry(t_data data);
+int check_object(t_data data);
+int check_map_name(char *name);
+
 //render map  
-t_map count_hw();
-char **fill_map(int h);
+t_map count_hw(char *name);
+char **fill_map(int h, char *name);
 int render_map(t_data *data);
 char *int_to_str(int nbr);
 

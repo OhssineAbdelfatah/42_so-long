@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:11:16 by aohssine          #+#    #+#             */
-/*   Updated: 2024/02/22 15:55:06 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:35:30 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_calloc(int count, int size)
 	len = count * size;
 	p = ptr;
 	while (len--)
-		*p++ = 0;
+		*p++ = '\0';
 	return (ptr);
 }
 
@@ -46,7 +46,7 @@ char	*read_line(int fd, char *buffer)
 			free(buffer);
 			return (NULL);
 		}
-		line[bf] = 0;
+		line[bf] = '\0';
 		buffer = join(buffer, line);
 		if (find_char(line, '\n'))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 17:11:34 by aohssine          #+#    #+#             */
-/*   Updated: 2024/02/22 22:53:57 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:06:36 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_strlen(char *s)
 	int	i;
 
 	i = 0;
-	while (s && s[i])
+	while (s && s[i] != '\0')
 		i++;
 	return (i);
 }
