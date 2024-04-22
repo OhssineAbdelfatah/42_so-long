@@ -1,6 +1,6 @@
 #include"so_long.h"
 
-t_game count_collect(t_data *data)
+t_game count_collect(char **map_arr)
 {
     int i;
     int j;
@@ -11,11 +11,11 @@ t_game count_collect(t_data *data)
     g1.coll_var = 0;
     g1.exit = 0;
 
-    while((*data).map_arr[i]){
+    while(map_arr[i]){
         j = 0;
-        while ((*data).map_arr[i][j])
+        while (map_arr[i][j])
         {
-            if((*data).map_arr[i][j] == 'C')
+            if(map_arr[i][j] == 'C')
                 g1.coll_0++;
             j++;
         }

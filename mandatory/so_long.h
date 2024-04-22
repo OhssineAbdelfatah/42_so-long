@@ -36,13 +36,13 @@ typedef struct s_map {
 
 typedef struct s_data
 {
-	t_game *game;
+	t_game		*game;
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	t_img		*images[6]; // MLX image pointers (on the stack)
+	t_img		*images[6];
 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
-	char **map_arr;
-	int movs;
+	char 		**map_arr;
+	int			movs;
 }	t_data;
 
 // get next line functions
@@ -91,6 +91,6 @@ t_map get_player_position(char **map_arr);
 // utils
 
 int get_button_exit(__unused long keycode, __unused t_data vars );
-t_game count_collect(t_data *data);
+t_game count_collect(char **map_arr);
 
 #endif

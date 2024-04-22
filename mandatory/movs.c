@@ -22,7 +22,7 @@ void move_left(t_data *data)
         else
             (*data).map_arr[location.h][location.w ] = '0';
 
-        mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
+        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
         render_map(data);
         // printf("mov : %d\n",data->movs);
 
@@ -51,7 +51,7 @@ void move_right(t_data *data)
             (*data).map_arr[location.h][location.w ] = 'E';
         else
             (*data).map_arr[location.h][location.w ] = '0';
-        mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
+        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
         render_map(data);
         // printf("mov : %d\n",data->movs);
     }
@@ -79,7 +79,7 @@ void move_down(t_data *data){
             (*data).map_arr[location.h][location.w ] = 'E';
         else
             (*data).map_arr[location.h][location.w ] = '0';
-        mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
+        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
         render_map(data);
         // printf("mov : %d\n",data->movs);
     }
@@ -107,7 +107,7 @@ void move_up(t_data *data){
             (*data).map_arr[location.h][location.w] = 'E';
         else
             (*data).map_arr[location.h][location.w] = '0';
-        mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
+        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
         render_map(data);
         // printf("mov : %d\n",data->movs);
     }

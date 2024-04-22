@@ -20,7 +20,6 @@ t_map count_hw(char *name){
     return mtrx;
 }
 
-
 char **fill_map(int h, char *name)
 {
     char **map;
@@ -63,6 +62,7 @@ int render_map(t_data *data)
             
             
             else if((*data).map_arr[i][j] == 'P'){
+                ft_printf("here \n");
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[1]->img_ptr,x,y);
             }
@@ -94,6 +94,7 @@ int render_map(t_data *data)
         y+=(*data).images[0]->yh;
         i++;
     }
+
     movs = int_to_str((*data).movs);
     mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 20, 2, -1,"movs : ");
     mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 92, 2, -1 ,movs);

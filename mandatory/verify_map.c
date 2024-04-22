@@ -108,22 +108,24 @@ int valid_path(int x,int y,int *col,int *exit,char **map_arr){
     return 0;
 }
 
-int check_valid_path(char *name){
+int check_valid_path(char *name ){
     char **map_arr;
     t_map mtrx;
     t_map p_pos;
     int col;
     int exit;
+    int col_0;
 
     col = 0;
     exit = 0;
     mtrx = count_hw(name);
     map_arr = (char **)malloc(((mtrx.h)+1)*sizeof(char *));
     map_arr = fill_map(mtrx.h , name); 
+    col_0 = count_collect(map_arr).coll_0;
     p_pos = get_player_position(map_arr);
     valid_path(p_pos.h ,p_pos.w , &col ,&exit ,map_arr);
-    ft_printf("col %d exit %d\n",col,exit);
-
+    if(col != col_0 || exit != 1)
+        return -1;
     return 0;
 }
 // col lines
