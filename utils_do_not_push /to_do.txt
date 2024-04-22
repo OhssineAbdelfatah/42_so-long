@@ -4,11 +4,11 @@
 
 01 . check lines yes
 
-02 . valid_path ...
+02 . valid_path yes
 
 03 . unicty of objects ( 1P , 1E ,at least 1 C ) yes
   
-04 . screen size check  ... not relwvwnt
+04 . screen size check  ... relevent 
 
 05 . check program args only a map with ".ber" extension , file aces and existence yes
 
