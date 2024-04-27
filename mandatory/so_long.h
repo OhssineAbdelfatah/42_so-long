@@ -13,6 +13,15 @@
 // 	t_img image;
 // 	t_data data;
 // } t_all;
+typedef struct s_player_img
+{
+	void *imgr;
+	void *imgl;
+	void *imgd;
+	void *imgu;
+	void *current_img;
+} t_player_img;
+
 
 typedef struct s_game
 {
@@ -39,10 +48,11 @@ typedef struct s_data
 	t_game		*game;
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	t_img		*images[6];
+	t_img		*images[10];
 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
 	char 		**map_arr;
 	int			movs;
+	t_player_img canvas;
 }	t_data;
 
 // get next line functions

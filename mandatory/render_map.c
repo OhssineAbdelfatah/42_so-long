@@ -47,7 +47,7 @@ int render_map(t_data *data)
     int j;
     int x;
     int y;
-    char *movs;
+    // char *movs;
     y = 0;
     i = 0 ;
     while((*data).map_arr[i] ){
@@ -56,15 +56,11 @@ int render_map(t_data *data)
         while( (*data).map_arr[i][j] ){
             if((*data).map_arr[i][j] == '1' )
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[0]->img_ptr ,x,y);
-            
             else if((*data).map_arr[i][j] == '0')
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-            
-            
             else if((*data).map_arr[i][j] == 'P'){
-                ft_printf("here \n");
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[1]->img_ptr,x,y);
+                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).canvas.current_img,x,y);
             }
             else if((*data).map_arr[i][j] == 'C'){
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
@@ -81,24 +77,20 @@ int render_map(t_data *data)
             else if((*data).map_arr[i][j] == 'B'){
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
                 mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[1]->img_ptr,x,y);
+                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).canvas.current_img,x,y);
             }
-
-
-            // else if((*data).map_arr[i][j] == 'E'  && (*data).game->exit == 0)
-            //     mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x+6,y);
-            
             j++;
             x+=(*data).images[0]->xw;
         }
         y+=(*data).images[0]->yh;
         i++;
     }
-
-    movs = int_to_str((*data).movs);
-    mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 20, 2, -1,"movs : ");
-    mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 92, 2, -1 ,movs);
-    free(movs);
+    // movs = int_to_str((*data).movs);
+    if((*data).movs != 0)
+        ft_printf("mov number : %d \n",(*data).movs);
+    // mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 20, 2, -1,"movs : ");
+    // mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 92, 2, -1 ,movs);
+    // free(movs);
     return 0;
 }
 
