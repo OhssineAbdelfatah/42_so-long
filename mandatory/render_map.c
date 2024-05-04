@@ -1,123 +1,103 @@
-#include"so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_map.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/02 20:33:55 by aohssine          #+#    #+#             */
+/*   Updated: 2024/05/04 12:11:21 by aohssine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "so_long.h"
 
-t_map count_hw(char *name){
-    int fd_map ;
-    t_map mtrx;
-    char *line;
-    mtrx.w = 0;
-    mtrx.h = 0;
-    fd_map = open(name,O_RDONLY);
-    // handle error
-    while( (line = get_next_line(fd_map)) ){
-        while(line[mtrx.w])
-            mtrx.w++;
-        mtrx.h++;
-        free(line);
-    }
-    free(line);
-    close(fd_map);
-    return mtrx;
+char	**fill_map(int h, char *name)
+{
+	char	**map;
+	int		i;
+	int		fd_map;
+
+	fd_map = open(name, O_RDONLY);
+	if (fd_map == -1)
+		throw_error("file not exist or incorrect permission.", 1);
+	map = (char **)malloc((h + 1) * sizeof(char *));
+	if (!map)
+		return (NULL);
+	map[0] = get_next_line(fd_map);
+	if (!map[0])
+	{
+		free(map);
+		throw_error("file empty.", 1);
+	}
+	i = 1;
+	while (i < h)
+	{
+		map[i] = get_next_line(fd_map);
+		i++;
+	}
+	map[i] = NULL;
+	return (map);
 }
 
-char **fill_map(int h, char *name)
+void	wall_then_player(t_data dt, t_trender rn)
 {
-    char **map;
-    int i;
-    int fd_map;
-
-    fd_map = open(name,O_RDONLY);
-    // handel error
-    i = 0 ;
-    map = (char **)malloc((h+1)*sizeof(char *));
-    if(!map)
-        return NULL;
-    //handle error
-    while(i< h ){
-        map[i] = get_next_line(fd_map);
-        i++;
-    }
-    map[i]= NULL;
-    return map;
+	mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[5].img_ptr, rn.x,
+		rn.y);
+	mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[3].img_ptr, rn.x,
+		rn.y);
+	mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.canvas, rn.x, rn.y);
 }
 
-int render_map(t_data *data)
+void	floor_then_obj(t_data dt, t_trender rn, void *ptr)
 {
-    int i;
-    int j;
-    int x;
-    int y;
-    // char *movs;
-    y = 0;
-    i = 0 ;
-    while((*data).map_arr[i] ){
-        x = 0;
-        j = 0 ;
-        while( (*data).map_arr[i][j] ){
-            if((*data).map_arr[i][j] == '1' )
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[0]->img_ptr ,x,y);
-            else if((*data).map_arr[i][j] == '0')
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-            else if((*data).map_arr[i][j] == 'P'){
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).canvas.current_img,x,y);
-            }
-            else if((*data).map_arr[i][j] == 'C'){
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[2]->img_ptr,x+8,y+8);
-            }
-            else if((*data).map_arr[i][j] == 'E'  && (*data).game->coll_var != (*data).game->coll_0){
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x,y);
-            }
-            else if((*data).map_arr[i][j] == 'E'  && (*data).game->coll_var == (*data).game->coll_0){
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[4]->img_ptr,x,y);
-            }
-            else if((*data).map_arr[i][j] == 'B'){
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[5]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).images[3]->img_ptr,x,y);
-                mlx_put_image_to_window((*data).mlx_ptr,(*data).win_ptr,(*data).canvas.current_img,x,y);
-            }
-            j++;
-            x+=(*data).images[0]->xw;
-        }
-        y+=(*data).images[0]->yh;
-        i++;
-    }
-    // movs = int_to_str((*data).movs);
-    if((*data).movs != 0)
-        ft_printf("mov number : %d \n",(*data).movs);
-    // mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 20, 2, -1,"movs : ");
-    // mlx_string_put((*data).mlx_ptr, (*data).win_ptr, 92, 2, -1 ,movs);
-    // free(movs);
-    return 0;
+	mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[5].img_ptr, rn.x,
+		rn.y);
+	mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, ptr, rn.x, rn.y);
 }
 
-char *int_to_str(int nbr)
+void	put_to_win(t_data dt, t_trender rn)
 {
-    int num;
-    int len;
-    int i;
-    char * str;
+	if (dt.map_arr[rn.i][rn.j] == '1')
+		mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[0].img_ptr,
+			rn.x, rn.y);
+	else if (dt.map_arr[rn.i][rn.j] == '0')
+		mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[5].img_ptr,
+			rn.x, rn.y);
+	else if (dt.map_arr[rn.i][rn.j] == 'P')
+		floor_then_obj(dt, rn, dt.canvas);
+	else if (dt.map_arr[rn.i][rn.j] == 'C')
+		floor_then_obj(dt, rn, dt.images[2].img_ptr);
+	else if (dt.map_arr[rn.i][rn.j] == 'E'
+		&& dt.game->coll_var != dt.game->coll_0)
+		floor_then_obj(dt, rn, dt.images[3].img_ptr);
+	else if (dt.map_arr[rn.i][rn.j] == 'E'
+		&& dt.game->coll_var == dt.game->coll_0)
+		floor_then_obj(dt, rn, dt.images[4].img_ptr);
+	else if (dt.map_arr[rn.i][rn.j] == 'B')
+		wall_then_player(dt, rn);
+}
 
-    num = nbr;
-    len = 0;
-    i = 0;
-    if(nbr == 0)
-        len = 1;
-    else{
-        while(num){
-            num=num/10;
-            len++;
-        }
-    }
-    str = malloc(len+1);
-    while(i< len){
-        str[len-1-i] = nbr%10 +48;
-        nbr/=10;
-        i++; 
-    }
-    str[len]=0;
-    return str;
+int	render_map(t_data *data)
+{
+	t_trender	ren;
+
+	ren.y = 0;
+	ren.i = 0;
+	while ((*data).map_arr[ren.i])
+	{
+		ren.x = 0;
+		ren.j = 0;
+		while ((*data).map_arr[ren.i][ren.j])
+		{
+			put_to_win(*data, ren);
+			ren.j++;
+			ren.x += (*data).images[0].xw;
+		}
+		ren.y += (*data).images[0].yh;
+		ren.i++;
+	}
+	if ((*data).movs != 0)
+		ft_printf("mov number : %d \n", (*data).movs);
+	return (0);
 }

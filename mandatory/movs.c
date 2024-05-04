@@ -1,121 +1,123 @@
-#include"so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   movs.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/02 19:58:32 by aohssine          #+#    #+#             */
+/*   Updated: 2024/05/03 19:57:25 by aohssine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "so_long.h"
 
-void move_left(t_data *data)
+void	move_left(t_data *data)
 {
-    t_map location;
-    (*data).canvas.current_img = (*data).canvas.imgl; 
+	t_map	loc;
 
-    location = get_player_position(data->map_arr);
-    if(location.w - 1 > 0 && (*data).map_arr[location.h][location.w - 1] != '1'  ){
-        (*data).movs++;
-        if((*data).map_arr[location.h][location.w - 1] == 'C')
-            (*data).game->coll_var++;
-        if((*data).map_arr[location.h][location.w - 1] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
-            (*data).map_arr[location.h][location.w - 1] = 'B';
-        else if((*data).map_arr[location.h][location.w - 1] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            ft_printf("you win\n");
-            exit(0);
-        }
-        else
-            (*data).map_arr[location.h][location.w - 1] = 'P';
-        if((*data).map_arr[location.h][location.w ] == 'B')
-            (*data).map_arr[location.h][location.w ] = 'E';
-        else
-            (*data).map_arr[location.h][location.w ] = '0';
-
-        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
-        render_map(data);
-        // printf("mov : %d\n",data->movs);
-
-    }
-    return ;
+	loc = get_player_position(data->map_arr);
+	if (loc.w - 1 > 0 && (*data).map_arr[loc.h][loc.w - 1] != '1')
+	{
+		(*data).movs++;
+		if ((*data).map_arr[loc.h][loc.w - 1] == 'C')
+			(*data).game->coll_var++;
+		if ((*data).map_arr[loc.h][loc.w - 1] == 'E'
+			&& (*data).game->coll_var != (*data).game->coll_0)
+			(*data).map_arr[loc.h][loc.w - 1] = 'B';
+		else if ((*data).map_arr[loc.h][loc.w - 1] == 'E'
+			&& (*data).game->coll_var == (*data).game->coll_0)
+			throw_error("you win", 2);
+		else
+			(*data).map_arr[loc.h][loc.w - 1] = 'P';
+		if ((*data).map_arr[loc.h][loc.w] == 'B')
+			(*data).map_arr[loc.h][loc.w] = 'E';
+		else
+			(*data).map_arr[loc.h][loc.w] = '0';
+		render_map(data);
+	}
+	return ;
 }
 
-void move_right(t_data *data)
+void	move_right(t_data *data)
 {
-    t_map location;
-    (*data).canvas.current_img = (*data).canvas.imgr; 
-    location = get_player_position(data->map_arr);
-    if(location.w + 1 > 0 && (*data).map_arr[location.h][location.w + 1] != '1' ){
-        (*data).movs++;
-        if((*data).map_arr[location.h][location.w + 1] == 'C')
-            (*data).game->coll_var++;
-        if((*data).map_arr[location.h][location.w + 1] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
-            (*data).map_arr[location.h][location.w + 1] = 'B';
-        else if((*data).map_arr[location.h][location.w + 1] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            ft_printf("you win");
-            exit(0);
-        }
-        else
-            (*data).map_arr[location.h][location.w + 1] = 'P';
-        if((*data).map_arr[location.h][location.w ] == 'B')
-            (*data).map_arr[location.h][location.w ] = 'E';
-        else
-            (*data).map_arr[location.h][location.w ] = '0';
-        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
-        render_map(data);
-        // printf("mov : %d\n",data->movs);
-    }
-    return ;
+	t_map	loc;
+
+	loc = get_player_position(data->map_arr);
+	if (loc.w + 1 > 0 && (*data).map_arr[loc.h][loc.w + 1] != '1')
+	{
+		(*data).movs++;
+		if ((*data).map_arr[loc.h][loc.w + 1] == 'C')
+			(*data).game->coll_var++;
+		if ((*data).map_arr[loc.h][loc.w + 1] == 'E'
+			&& (*data).game->coll_var != (*data).game->coll_0)
+			(*data).map_arr[loc.h][loc.w + 1] = 'B';
+		else if ((*data).map_arr[loc.h][loc.w + 1] == 'E'
+			&& (*data).game->coll_var == (*data).game->coll_0)
+			throw_error("you win", 2);
+		else
+			(*data).map_arr[loc.h][loc.w + 1] = 'P';
+		if ((*data).map_arr[loc.h][loc.w] == 'B')
+			(*data).map_arr[loc.h][loc.w] = 'E';
+		else
+			(*data).map_arr[loc.h][loc.w] = '0';
+		render_map(data);
+	}
+	return ;
 }
 
-void move_down(t_data *data){
-    t_map location;
-    
-    (*data).canvas.current_img = (*data).canvas.imgd; 
-    location = get_player_position(data->map_arr);
-    if(location.h + 1 > 0  && (*data).map_arr[location.h+1][location.w] != '1'){
-        (*data).movs++;
-        if((*data).map_arr[location.h+1][location.w] == 'C')
-            (*data).game->coll_var++;
-        if((*data).map_arr[location.h+1][location.w] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
-            (*data).map_arr[location.h+1][location.w] = 'B';
-        else if((*data).map_arr[location.h+1][location.w] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
-            ft_printf("you win");
-            exit(0);
-        }
-        else 
-            (*data).map_arr[location.h+1][location.w] = 'P';
-        
-        if( (*data).map_arr[location.h][location.w ] == 'B')
-            (*data).map_arr[location.h][location.w ] = 'E';
-        else
-            (*data).map_arr[location.h][location.w ] = '0';
-        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
-        render_map(data);
-        // printf("mov : %d\n",data->movs);
-    }
+void	move_down(t_data *data)
+{
+	t_map	loc;
 
-    return ;
+	(*data).canvas = (*data).images[9].img_ptr;
+	loc = get_player_position(data->map_arr);
+	if (loc.h + 1 > 0 && (*data).map_arr[loc.h + 1][loc.w] != '1')
+	{
+		(*data).movs++;
+		if ((*data).map_arr[loc.h + 1][loc.w] == 'C')
+			(*data).game->coll_var++;
+		if ((*data).map_arr[loc.h + 1][loc.w] == 'E'
+			&& (*data).game->coll_var != (*data).game->coll_0)
+			(*data).map_arr[loc.h + 1][loc.w] = 'B';
+		else if ((*data).map_arr[loc.h + 1][loc.w] == 'E'
+			&& (*data).game->coll_var == (*data).game->coll_0)
+			throw_error("you win", 2);
+		else
+			(*data).map_arr[loc.h + 1][loc.w] = 'P';
+		if ((*data).map_arr[loc.h][loc.w] == 'B')
+			(*data).map_arr[loc.h][loc.w] = 'E';
+		else
+			(*data).map_arr[loc.h][loc.w] = '0';
+		render_map(data);
+	}
+	return ;
 }
 
-void move_up(t_data *data){
-    t_map location;
-    
-    (*data).canvas.current_img = (*data).canvas.imgu; 
-    location = get_player_position(data->map_arr);
-    if(location.h - 1 > 0 && (*data).map_arr[location.h-1][location.w] != '1'){
-        (*data).movs++;
-        if((*data).map_arr[location.h-1][location.w] == 'C')
-            (*data).game->coll_var++;
-        if( (*data).map_arr[location.h-1][location.w] == 'E' && (*data).game->coll_var != (*data).game->coll_0)
-            (*data).map_arr[location.h-1][location.w] = 'B';
-        else if( (*data).map_arr[location.h-1][location.w] == 'E' && (*data).game->coll_var == (*data).game->coll_0)
-        {
-            ft_printf("you win");
-            exit(0);
-        }
-        else
-            (*data).map_arr[location.h-1][location.w] = 'P';
-        if( (*data).map_arr[location.h][location.w] == 'B' )
-            (*data).map_arr[location.h][location.w] = 'E';
-        else
-            (*data).map_arr[location.h][location.w] = '0';
-        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
-        render_map(data);
-        // printf("mov : %d\n",data->movs);
-    }
-  
-    return ;
+void	move_up(t_data *data)
+{
+	t_map	loc;
+
+	(*data).canvas = (*data).images[8].img_ptr;
+	loc = get_player_position(data->map_arr);
+	if (loc.h - 1 > 0 && (*data).map_arr[loc.h - 1][loc.w] != '1')
+	{
+		(*data).movs++;
+		if ((*data).map_arr[loc.h - 1][loc.w] == 'C')
+			(*data).game->coll_var++;
+		if ((*data).map_arr[loc.h - 1][loc.w] == 'E'
+			&& (*data).game->coll_var != (*data).game->coll_0)
+			(*data).map_arr[loc.h - 1][loc.w] = 'B';
+		else if ((*data).map_arr[loc.h - 1][loc.w] == 'E'
+			&& (*data).game->coll_var == (*data).game->coll_0)
+			throw_error("you win", 2);
+		else
+			(*data).map_arr[loc.h - 1][loc.w] = 'P';
+		if ((*data).map_arr[loc.h][loc.w] == 'B')
+			(*data).map_arr[loc.h][loc.w] = 'E';
+		else
+			(*data).map_arr[loc.h][loc.w] = '0';
+		render_map(data);
+	}
+	return ;
 }
