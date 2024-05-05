@@ -15,24 +15,24 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-# include <mlx.h>
 # include <fcntl.h>
+# include <mlx.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct s_path 
+typedef struct s_path
 {
-	int col;
-	int exit;
-} t_path;
+	int		col;
+	int		exit;
+}			t_path;
 
-typedef struct s_object 
+typedef struct s_object
 {
 	int		exit;
 	int		player;
 	int		coll;
-} t_obj;
+}			t_obj;
 
 typedef struct s_render
 {
@@ -66,10 +66,10 @@ typedef struct s_map
 typedef struct s_data
 {
 	t_game	*game;
-	void *mlx_ptr;
-	void *win_ptr;
+	void	*mlx_ptr;
+	void	*win_ptr;
 	t_img	images[10];
-	t_map *map;
+	t_map	*map;
 	char	**map_arr;
 	int		movs;
 	void	*canvas;
