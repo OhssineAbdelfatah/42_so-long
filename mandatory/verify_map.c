@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:33:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/04 13:17:04 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:33:44 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,30 +79,20 @@ int	check_object(char **map_arr)
 	return (0);
 }
 
-int	valid_path(t_map pos, int *col, int *exit, char **map_arr)
+int	valid_path(int x, int y, t_path *p, char **map_arr)
 {
-	if (map_arr[pos.h][pos.w] == '1' || map_arr[pos.h][pos.w] == '\0'
-		|| map_arr[pos.h] == NULL || map_arr[pos.h][pos.w] == 'V')
+	if (map_arr[x][y] == '1' || map_arr[x][y] == '\0' || map_arr[x] == NULL
+		|| map_arr[x][y] == 'V')
 		return (0);
-	if (map_arr[pos.h][pos.w] == 'C')
-		*col += 1;
-	if (map_arr[pos.h][pos.w] != 'E')
-		*exit = 1;
-	map_arr[pos.h][pos.w] = 'V';
-	// ft_printf("here\n");
-	pos.h += 1;
-    valid_path(pos, col, exit, map_arr);
-    pos.h -= 2;
-    valid_path(pos, col, exit, map_arr);
-    pos.h += 2;
-    valid_path(pos, col, exit, map_arr);
-    pos.w -= 2;
-    valid_path(pos, col, exit, map_arr);
-    pos.w += 1;
-	// valid_path((t_map){pos.h + 1, pos.w}, col, exit, map_arr);
-	// valid_path((t_map){pos.h - 1, pos.w}, col, exit, map_arr);
-	// valid_path((t_map){pos.h, pos.w + 1}, col, exit, map_arr);
-	// valid_path((t_map){pos.h, pos.w - 1}, col, exit, map_arr);
+	if (map_arr[x][y] == 'C')
+		p->col += 1;
+	if (map_arr[x][y] != 'E')
+		p->exit = 1;
+	map_arr[x][y] = 'V';
+	valid_path(x + 1, y, p, map_arr);
+	valid_path(x - 1, y, p, map_arr);
+	valid_path(x, y + 1, p, map_arr);
+	valid_path(x, y - 1, p, map_arr);
 	return (0);
 }
 
@@ -110,22 +100,20 @@ int	check_valid_path(char *name)
 {
 	char	**map_arr;
 	t_map	p_pos;
-	int		col;
-	int		exit;
+	t_path	p;
 	int		col_0;
 
-	col = 0;
-	exit = 0;
+	p.col = 0;
+	p.exit = 0;
 	map_arr = fill_map(count_hw(name).h, name);
 	col_0 = count_collect(map_arr).coll_0;
 	p_pos = get_player_position(map_arr);
-	valid_path(p_pos, &col, &exit, map_arr);
-	// free_map(map_arr);
-	if (col != col_0 || exit != 1)
+	valid_path(p_pos.h, p_pos.w, &p, map_arr);
+	free_map(map_arr);
+	if (p.col != col_0 || p.exit != 1)
 	{
-		// throw_error("invalid path.", 1);
-		return -1;
+		throw_error("invalid path.", 1);
+		return (-1);
 	}
 	return (0);
 }
-// col lines

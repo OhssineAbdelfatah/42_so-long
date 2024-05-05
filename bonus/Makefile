@@ -2,7 +2,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 RM = rm -rf
 NAME = so_long
-SRC = main.c so_long_utils.c render_map.c get_next_line_utils.c get_next_line.c movs.c verify_map.c ft_printf.c ft_printf_utils.c
+SRC = main.c so_long_utils.c render_map.c get_next_line_utils.c get_next_line.c movs.c verify_map.c ft_printf.c ft_printf_utils.c animation.c
 OBJS = $(SRC:.c=.o) 
 MLX_FLAGS = -lmlx  -framework OpenGL -framework AppKit
  

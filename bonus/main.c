@@ -1,8 +1,7 @@
 #include"so_long.h"
 
-#include<stdio.h>
-
-void free_map(char  **map_arr){
+void free_map(char  **map_arr)
+{
     int i;
     i = 0; 
     while(map_arr[i++])
@@ -11,7 +10,8 @@ void free_map(char  **map_arr){
     return ;
 }
 
-int get_movs(long keycode,t_data *vars){
+int get_movs(long keycode,t_data *vars)
+{
     if(keycode == 53 )
         exit(2);
     if(keycode == 124 || keycode == 2) // right
@@ -25,11 +25,12 @@ int get_movs(long keycode,t_data *vars){
     return 0;
 }
 
-t_data init_imgs(t_data data){
+t_data init_imgs(t_data data)
+{
     t_img *img;
     int i ;
     i = 0 ;
-    img = malloc(10*sizeof(t_img));
+    img = malloc(14*sizeof(t_img));
     img[0].path = "./texteurs/wall1.xpm";
     img[1].path = "./texteurs/player1.xpm";
     img[2].path = "./texteurs/col2.xpm";
@@ -42,7 +43,13 @@ t_data init_imgs(t_data data){
     img[8].path = "./texteurs/up_00.xpm";
     img[9].path = "./texteurs/down_01.xpm";
 
-    while(i < 10){
+    img[10].path =  "./texteurs/animation/explo0.xpm";
+    img[11].path =  "./texteurs/animation/explo1.xpm";
+    img[12].path =  "./texteurs/animation/explo2.xpm";
+    img[13].path =  "./texteurs/animation/explo3.xpm";
+
+
+    while(i < 14){
         data.images[i] = &img[i];
         data.images[i]->img_ptr = mlx_xpm_file_to_image(data.mlx_ptr, data.images[i]->path, &(data.images[i]->xw), &(data.images[i]->yh));
         i++;
@@ -69,13 +76,15 @@ int start_game(char *name)
     mtrx = count_hw(name); 
     data.map = &mtrx; 
     data.map_arr = fill_map(mtrx.h,name);
-    if( data.map_arr[0] != NULL ){
-        if(check_lines(data) == -1 ||  check_boundry(data) == -1   || check_object(data) == -1){
-            free_map(data.map_arr);
-            return -1;
-        }
-    }else
-        return -1;
+
+    // if( data.map_arr[0] != NULL ){
+    //     if(check_lines(data) == -1 ||  check_boundry(data) == -1   || check_object(data) == -1){
+    //         free_map(data.map_arr);
+    //         return -1;
+    //     }
+    // }else
+    //     return -1;
+
     (data).win_ptr = mlx_new_window((data).mlx_ptr,(data).map->w * data.images[0]->xw ,(data).map->h* data.images[0]->yh,"So Long @_@");
     game = count_collect(data.map_arr);
     data.game = &game;
@@ -83,12 +92,14 @@ int start_game(char *name)
     render_map(&data); // check error
     mlx_hook(data.win_ptr, 2,0,get_movs,&data);
     mlx_hook(data.win_ptr, 17,0,get_button_exit,&data);
+    mlx_loop_hook(data.mlx_ptr ,fire ,&data);
     mlx_loop(data.mlx_ptr);
     return 0;
 
 }
 
-int main(int argc ,char **argv){
+int main(int argc ,char **argv)
+{
     int err;    
     
     if(argc == 2 ){

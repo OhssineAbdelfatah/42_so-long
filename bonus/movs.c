@@ -1,11 +1,10 @@
 #include"so_long.h"
 
-
 void move_left(t_data *data)
 {
     t_map location;
-    (*data).canvas.current_img = (*data).canvas.imgl; 
 
+    (*data).canvas.current_img = (*data).canvas.imgl; 
     location = get_player_position(data->map_arr);
     if(location.w - 1 > 0 && (*data).map_arr[location.h][location.w - 1] != '1'  ){
         (*data).movs++;
@@ -16,18 +15,13 @@ void move_left(t_data *data)
         else if((*data).map_arr[location.h][location.w - 1] == 'E' && (*data).game->coll_var == (*data).game->coll_0){
             ft_printf("you win\n");
             exit(0);
-        }
-        else
+        }else
             (*data).map_arr[location.h][location.w - 1] = 'P';
         if((*data).map_arr[location.h][location.w ] == 'B')
             (*data).map_arr[location.h][location.w ] = 'E';
         else
             (*data).map_arr[location.h][location.w ] = '0';
-
-        // mlx_clear_window((*data).mlx_ptr,(*data).win_ptr);
         render_map(data);
-        // printf("mov : %d\n",data->movs);
-
     }
     return ;
 }

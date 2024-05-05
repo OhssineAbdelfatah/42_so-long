@@ -48,7 +48,7 @@ typedef struct s_data
 	t_game		*game;
 	void		*mlx_ptr; // MLX pointer
 	void		*win_ptr; // MLX window pointer
-	t_img		*images[10];
+	t_img		*images[14];
 	t_map		*map; // Map pointer (contains map details - preferably kept on the stack)
 	char 		**map_arr;
 	int			movs;
@@ -102,5 +102,10 @@ t_map get_player_position(char **map_arr);
 
 int get_button_exit(__unused long keycode, __unused t_data vars );
 t_game count_collect(char **map_arr);
+
+
+// animations
+
+int fire(t_data *data);
 
 #endif

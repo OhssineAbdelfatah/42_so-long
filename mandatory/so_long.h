@@ -1,13 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aohssine <aohssine@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/05 16:38:54 by aohssine          #+#    #+#             */
+/*   Updated: 2024/05/05 16:38:56 by aohssine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
-# include "../mlx/mlx.h"
+# include <mlx.h>
 # include <fcntl.h>
 # include <stdarg.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+typedef struct s_path 
+{
+	int col;
+	int exit;
+} t_path;
 
 typedef struct s_object 
 {

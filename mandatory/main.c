@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:05:03 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/04 12:49:50 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/05 16:33:28 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ int	main(int argc, char **argv)
 {
 	int	err;
 
-	atexit(ll);
 	if (argc == 2)
 	{
 		check_errors(argv[1]);

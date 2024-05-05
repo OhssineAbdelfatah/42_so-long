@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:58:32 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/03 19:57:25 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:43:28 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	move_down(t_data *data)
 {
 	t_map	loc;
 
-	(*data).canvas = (*data).images[9].img_ptr;
 	loc = get_player_position(data->map_arr);
 	if (loc.h + 1 > 0 && (*data).map_arr[loc.h + 1][loc.w] != '1')
 	{
@@ -98,7 +97,6 @@ void	move_up(t_data *data)
 {
 	t_map	loc;
 
-	(*data).canvas = (*data).images[8].img_ptr;
 	loc = get_player_position(data->map_arr);
 	if (loc.h - 1 > 0 && (*data).map_arr[loc.h - 1][loc.w] != '1')
 	{

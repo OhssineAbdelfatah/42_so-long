@@ -93,7 +93,8 @@ int check_object(t_data data)
     return 0;  
 }
 
-int valid_path(int x,int y,int *col,int *exit,char **map_arr){
+int valid_path(int x,int y,int *col,int *exit,char **map_arr)
+{
     if(map_arr[x][y] == '1' || map_arr[x][y] == '\0' || map_arr[x] == NULL || map_arr[x][y] == 'V')
         return 0;
     if(map_arr[x][y] == 'C')
@@ -108,7 +109,8 @@ int valid_path(int x,int y,int *col,int *exit,char **map_arr){
     return 0;
 }
 
-int check_valid_path(char *name ){
+int check_valid_path(char *name )
+{
     char **map_arr;
     t_map mtrx;
     t_map p_pos;
