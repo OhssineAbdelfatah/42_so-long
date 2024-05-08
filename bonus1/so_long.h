@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:38:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/07 12:45:25 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:26:50 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,13 @@ typedef struct s_data
 	t_game	*game;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_img	images[10];
+	t_img	images[17];
 	t_map	*map;
 	char	**map_arr;
 	int		movs;
 	void	*canvas;
+	t_map	*fire_arr;
+	int		fire;
 }			t_data;
 
 // get next line functions
@@ -99,7 +101,7 @@ void		printhexa(unsigned long n, int *len, char type);
 
 int			check_lines(char **map_arr, t_map map);
 int			check_boundry(char **map_arr, t_map map);
-int			check_object(char **map_arr, t_map mtrx);
+int			check_object(char **map_arr);
 int			check_map_name(char *name);
 int			check_valid_path(char *name);
 
@@ -125,5 +127,13 @@ t_game		count_collect(char **map_arr);
 void		free_map(char **map_arr);
 int			check_errors(char *name);
 void		throw_error(char *error, int i);
+
+// animation
+
+void		put_obj(t_data *data, void *img, t_map mtrx);
+int			fire(t_data *data);
+t_map		find_enemy(t_data *data);
+int			count_enm(t_data dt);
+t_map		*get_enm(t_data dt);
 
 #endif

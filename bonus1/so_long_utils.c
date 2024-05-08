@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:58:44 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/07 12:44:29 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/06 16:00:03 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,7 @@ int	check_errors(char *name)
 {
 	t_map	map;
 	char	**map_arr;
-	t_map	mtrx;
 
-	mtrx.h = 0;
-	mtrx.w = 0;
 	map = count_hw(name);
 	if (map.h > 21 || map.w > 40)
 		throw_error("hight or width error.", 1);
@@ -103,7 +100,7 @@ int	check_errors(char *name)
 		throw_error("lines not eqaul.", 1);
 	if (check_boundry(map_arr, map) == -1)
 		throw_error("side walls.", 1);
-	if (check_object(map_arr, mtrx) == -1)
+	if (check_object(map_arr) == -1)
 		throw_error("too few or too many objects.", 1);
 	if (check_valid_path(name) == -1)
 		throw_error("invalid path.", 1);

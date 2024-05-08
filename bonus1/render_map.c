@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:33:55 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/05 16:56:57 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:39:35 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,12 @@ void	put_to_win(t_data dt, t_trender rn)
 	else if (dt.map_arr[rn.i][rn.j] == 'P')
 		floor_then_obj(dt, rn, dt.canvas);
 	else if (dt.map_arr[rn.i][rn.j] == 'C')
-		floor_then_obj(dt, rn, dt.images[1].img_ptr);
+	{
+		mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[4].img_ptr,
+			rn.x, rn.y);
+		mlx_put_image_to_window(dt.mlx_ptr, dt.win_ptr, dt.images[1].img_ptr,
+			rn.x + 8, rn.y + 8);
+	}
 	else if (dt.map_arr[rn.i][rn.j] == 'E'
 		&& dt.game->coll_var != dt.game->coll_0)
 		floor_then_obj(dt, rn, dt.images[2].img_ptr);
@@ -98,6 +103,6 @@ int	render_map(t_data *data)
 		ren.i++;
 	}
 	if ((*data).movs != 0)
-		ft_printf("mov number : %d \n", (*data).movs);
+		ft_printf("mov number : %d\n", (*data).movs);
 	return (0);
 }

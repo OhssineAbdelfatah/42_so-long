@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:05:03 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/05 16:55:04 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/08 17:11:35 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	get_movs(long keycode, t_data *vars)
 
 t_data	init_imgs(t_data data)
 {
-	t_img	img[9];
+	t_img	img[17];
 	int		i;
 
 	i = -1;
@@ -55,14 +55,22 @@ t_data	init_imgs(t_data data)
 	img[6].path = "./texteurs/left_p.xpm";
 	img[7].path = "./texteurs/up_p.xpm";
 	img[8].path = "./texteurs/down_p.xpm";
-	while (++i < 9)
+	img[9].path = "./texteurs/anim1/explosion1.xpm";
+	img[10].path = "./texteurs/anim1/explosion2.xpm";
+	img[11].path = "./texteurs/anim1/explosion3.xpm";
+	img[12].path = "./texteurs/anim1/explosion4.xpm";
+	img[13].path = "./texteurs/anim1/explosion5.xpm";
+	img[14].path = "./texteurs/anim1/explosion6.xpm";
+	img[15].path = "./texteurs/anim1/explosion7.xpm";
+	img[16].path = "./texteurs/anim1/explosion8.xpm";
+	while (++i < 17)
 	{
 		data.images[i] = img[i];
 		data.images[i].img_ptr = mlx_xpm_file_to_image(data.mlx_ptr,
 				data.images[i].path, &(data.images[i].xw),
 				&(data.images[i].yh));
 		if (!(data.images[i].img_ptr))
-			exit(0);
+			throw_error("error getting images.", 1);
 	}
 	data.canvas = data.images[5].img_ptr;
 	return (data);
@@ -81,6 +89,8 @@ int	start_game(char *name)
 	data = init_imgs(data);
 	data.map = &mtrx;
 	data.map_arr = fill_map(mtrx.h, name);
+	data.fire = count_enm(data);
+	data.fire_arr = get_enm(data);
 	(data).win_ptr = mlx_new_window((data).mlx_ptr, (data).map->w
 			* data.images[0].xw, (data).map->h * data.images[0].yh,
 			"So Long @_@");
@@ -92,13 +102,9 @@ int	start_game(char *name)
 	render_map(&data);
 	mlx_hook(data.win_ptr, 2, 0, get_movs, &data);
 	mlx_hook(data.win_ptr, 17, 0, get_button_exit, &data);
+	mlx_loop_hook(data.mlx_ptr, fire, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
-}
-
-void	ll(void)
-{
-	system("leaks so_long");
 }
 
 int	main(int argc, char **argv)
@@ -110,7 +116,7 @@ int	main(int argc, char **argv)
 		check_errors(argv[1]);
 		err = start_game(argv[1]);
 		if (err != 0)
-			return (-1);
+			return (0);
 	}
 	else
 		throw_error("arguments too few, or too many.", 1);

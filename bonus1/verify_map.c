@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:33:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/07 12:45:01 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/08 12:32:06 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,12 @@ int	check_boundry(char **map_arr, t_map map)
 	return (0);
 }
 
-int	check_object(char **map_arr, t_map mtrx)
+int	check_object(char **map_arr)
 {
 	t_obj	obj;
+	t_map	mtrx;
 
+	mtrx.h = 0;
 	obj.exit = 0;
 	obj.player = 0;
 	obj.coll = 0;
@@ -68,9 +70,6 @@ int	check_object(char **map_arr, t_map mtrx)
 				obj.exit++;
 			else if (map_arr[mtrx.h][mtrx.w] == 'C')
 				obj.coll++;
-			else if (map_arr[mtrx.h][mtrx.w] != '1'
-				&& map_arr[mtrx.h][mtrx.w] != '0')
-				return (-1);
 			mtrx.w++;
 		}
 		mtrx.h++;
@@ -80,14 +79,14 @@ int	check_object(char **map_arr, t_map mtrx)
 	return (0);
 }
 
-int	valid_path(int x, int y, t_path *p, char **map_arr)
+int	valid_path(int x, int y, t_game *p, char **map_arr)
 {
 	if (map_arr[x][y] == '1' || map_arr[x][y] == '\0' || map_arr[x] == NULL
-		|| map_arr[x][y] == 'V')
+		|| map_arr[x][y] == 'V' || map_arr[x][y] == 'X')
 		return (0);
 	if (map_arr[x][y] == 'C')
-		p->col += 1;
-	if (map_arr[x][y] != 'E')
+		p->coll_var += 1;
+	if (map_arr[x][y] == 'E')
 		p->exit = 1;
 	map_arr[x][y] = 'V';
 	valid_path(x + 1, y, p, map_arr);
@@ -101,17 +100,17 @@ int	check_valid_path(char *name)
 {
 	char	**map_arr;
 	t_map	p_pos;
-	t_path	p;
+	t_game	p;
 	int		col_0;
 
-	p.col = 0;
+	p.coll_var = 0;
 	p.exit = 0;
 	map_arr = fill_map(count_hw(name).h, name);
 	col_0 = count_collect(map_arr).coll_0;
 	p_pos = get_player_position(map_arr);
 	valid_path(p_pos.h, p_pos.w, &p, map_arr);
 	free_map(map_arr);
-	if (p.col != col_0 || p.exit != 1)
+	if (p.coll_var != col_0 || p.exit != 1)
 	{
 		throw_error("invalid path.", 1);
 		return (-1);
