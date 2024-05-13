@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:38:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/08 16:26:50 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/12 20:36:39 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,8 @@ typedef struct s_data
 	t_game	*game;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	t_img	images[17];
+	t_img	images[9];
+	t_img	anim[8];
 	t_map	*map;
 	char	**map_arr;
 	int		movs;
@@ -130,10 +131,20 @@ void		throw_error(char *error, int i);
 
 // animation
 
-void		put_obj(t_data *data, void *img, t_map mtrx);
-int			fire(t_data *data);
-t_map		find_enemy(t_data *data);
-int			count_enm(t_data dt);
+// void		put_obj(t_data *data, void *img, t_map mtrx);
+void		put_imgs(t_data dt, void *img_ptr);
+void		put_animation(t_data data, int j);
+int			animation(t_data *data);
+void		count_enm(t_data *dt);
 t_map		*get_enm(t_data dt);
+
+// move enemy
+int			is_floor(char c);
+void		move_enemy(t_data *dt);
+
+// so long utils 3
+
+void		printf_movs(t_data data);
+t_data		init_anim(t_data data);
 
 #endif

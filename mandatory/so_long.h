@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 16:38:54 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/07 12:45:25 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/12 23:45:35 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		printhexa(unsigned long n, int *len, char type);
 
 int			check_lines(char **map_arr, t_map map);
 int			check_boundry(char **map_arr, t_map map);
-int			check_object(char **map_arr, t_map mtrx);
+int			check_object(char **map_arr, t_map mtrx, t_obj obj);
 int			check_map_name(char *name);
 int			check_valid_path(char *name);
 

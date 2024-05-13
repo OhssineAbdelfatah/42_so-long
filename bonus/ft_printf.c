@@ -26,9 +26,9 @@ static void	check_format(char type, va_list arg, int *i, int *len)
 		printnbr(va_arg(arg, unsigned int), len, type);
 	else if (type == 'p')
 		printhexa((unsigned long)va_arg(arg, void *), len, type);
-	else if (type == 'x' || type == 'X' )
+	else if (type == 'x' || type == 'X')
 		printhexa(va_arg(arg, unsigned int), len, type);
-	else if (type == '\0' )
+	else if (type == '\0')
 		return ;
 	else
 		printchar(type, len);
@@ -42,18 +42,18 @@ int	ft_printf(const char *string, ...)
 	int		len;
 	va_list	arg;
 
-	i = 0 ;
-	len = 0 ;
+	i = 0;
+	len = 0;
 	va_start(arg, string);
 	while (string[i] != '\0')
 	{
 		if (string[i] == '%')
-			check_format(string[i +1], arg, &i, &len);
+			check_format(string[i + 1], arg, &i, &len);
 		else
 			printchar((char)string[i], &len);
 		if (*(string + i))
 			i++;
 	}
-	va_end (arg);
+	va_end(arg);
 	return (len);
 }

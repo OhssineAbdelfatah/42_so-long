@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:33:55 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/08 12:39:35 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/11 21:27:22 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	render_map(t_data *data)
 		ren.y += (*data).images[0].yh;
 		ren.i++;
 	}
-	if ((*data).movs != 0)
-		ft_printf("mov number : %d\n", (*data).movs);
+	if ((*data).movs >= 0)
+		printf_movs(*data);
 	return (0);
 }

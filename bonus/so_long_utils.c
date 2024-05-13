@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:58:44 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/06 16:00:03 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:03:29 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_button_exit(int keycode, t_data vars)
 {
 	(void)keycode;
 	(void)vars;
-	throw_error("game aborted.", 1);
+	throw_error("game exit.", 1);
 	return (0);
 }
 

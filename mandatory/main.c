@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 19:05:03 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/05 16:55:04 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:38:54 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	get_movs(long keycode, t_data *vars)
 {
 	if (keycode == 53)
-		throw_error("game aborted.", 1);
+		throw_error("game exit.", 1);
 	if (keycode == 124 || keycode == 2)
 	{
 		(*vars).canvas = (*vars).images[5].img_ptr;

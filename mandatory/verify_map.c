@@ -6,7 +6,7 @@
 /*   By: aohssine <aohssine@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 20:33:35 by aohssine          #+#    #+#             */
-/*   Updated: 2024/05/07 12:45:01 by aohssine         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:05:15 by aohssine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,8 @@ int	check_boundry(char **map_arr, t_map map)
 	return (0);
 }
 
-int	check_object(char **map_arr, t_map mtrx)
+int	check_object(char **map_arr, t_map mtrx, t_obj obj)
 {
-	t_obj	obj;
-
-	obj.exit = 0;
-	obj.player = 0;
-	obj.coll = 0;
 	while (map_arr && map_arr[mtrx.h])
 	{
 		mtrx.w = 0;
